@@ -12,12 +12,14 @@ import seaborn as sns
 
 
 def energy_consumption(df):
-    """reads data on CO2 emission from world Bank file   
-       Parameters:
-       - df (pd.DataFrame): DataFrame containing World Bank data.
-        Returns:
-       - df1 (pd.DataFrame): Filtered DataFrame for energy consumption.
-       - df1_transposed (pd.DataFrame): Transposed DataFrame for analysis."""
+    """
+    reads data on CO2 emission from world Bank file   
+    Parameters:
+    - df (pd.DataFrame): DataFrame containing World Bank data.
+     Returns:
+    - df1 (pd.DataFrame): Filtered DataFrame for energy consumption.
+    - df1_transposed (pd.DataFrame): Transposed DataFrame for analysis.
+    """
 
     df1 = df.loc[df["Series Name"] ==
                  "Energy use (kg of oil equivalent per capita)"]
@@ -33,7 +35,7 @@ def CO2_emission(df):
     Returns:
     - df1_CO2 (pd.DataFrame): Filtered DataFrame for CO2 emissions.
     - df2_CO2_transposed (pd.DataFrame): Transposed DataFrame for analysis.
-"""
+    """
 
     df1_CO2 = df.loc[df["Series Name"] ==
                      "CO2 emissions (metric tons per capita)"]
@@ -42,21 +44,23 @@ def CO2_emission(df):
 
 
 def GDP(df):
-    """reads GDP data from  file and returns 2 GDP dataframes 
+    """
+    reads GDP data from  file and returns 2 GDP dataframes 
     Parameters:
-  - df (pd.DataFrame): DataFrame containing World Bank data.
+    - df (pd.DataFrame): DataFrame containing World Bank data.
 
-  Returns:
-  - df1_GDP (pd.DataFrame): Filtered DataFrame for GDP.
-  - df2_GDP_transposed (pd.DataFrame): Transposed DataFrame for analysis.
-"""
+    Returns:
+    - df1_GDP (pd.DataFrame): Filtered DataFrame for GDP.
+    - df2_GDP_transposed (pd.DataFrame): Transposed DataFrame for analysis.
+   """
     df1_GDP = df.loc[df["Series Name"] == "GDP (current US$)"]
     df2_GDP_transposed = df1_GDP.transpose()
     return df1_GDP, df2_GDP_transposed
 
 
 def Electric_consumption(df):
-    """ Reads data on electric power consumption from the World Bank file.
+    """ 
+    Reads data on electric power consumption from the World Bank file.
 
      Parameters:
      - df (pd.DataFrame): DataFrame containing World Bank data.
@@ -65,21 +69,20 @@ def Electric_consumption(df):
      - df1_elec (pd.DataFrame): Filtered DataFrame for electric power 
      consumption.
      - df2_elec (pd.DataFrame): Transposed DataFrame for analysis.
-"""
+     """
 
     df1_elec = df.loc[df["Series Name"] ==
                       "Electric power consumption (kWh per capita)"]
     df2_elec = df1_elec.transpose()
     return df1_elec, df2_elec
 
-
     # checks whether the code is imported or run directly.
 if __name__ == "__main__":
     # Reading World Bank data from a CSV file
+    cols = [0, 2, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+            17, 18]
     df = pd.read_csv("Worldbankdata.csv", skip_blank_lines=True,
-                     index_col="Country Name",
-                     usecols=[0, 2, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-                              17, 18])
+                     index_col="Country Name", usecols=cols)
     # Extracting and analyzing energy consumption data
     energy_df1, energy_df2 = energy_consumption(df)
     print("Statistical properties of energy consumption data :\n",
@@ -181,7 +184,7 @@ if __name__ == "__main__":
     plt.title("Canada correlation Map")
     plt.tight_layout()
     plt.show()
-    
+
     # plot of correlation heatmap (China)
     correlation_china = df.loc["China"].set_index('Series Name').T
     print(correlation_china)
